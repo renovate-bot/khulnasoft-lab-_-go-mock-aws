@@ -4,8 +4,8 @@ go 1.18
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.21.2
-	github.com/aws/aws-sdk-go-v2/config v1.18.45
-	github.com/aws/aws-sdk-go-v2/credentials v1.13.43
+	github.com/aws/aws-sdk-go-v2/config v1.18.42
+	github.com/aws/aws-sdk-go-v2/credentials v1.13.40
 	github.com/aws/aws-sdk-go-v2/service/sqs v1.24.6
 	github.com/docker/docker v24.0.7+incompatible
 	github.com/docker/go-connections v0.4.0

@@ -3,27 +3,28 @@ module github.com/khulnasoft-lab/go-mock-aws
 go 1.18
 
 require (
-	github.com/aws/aws-sdk-go-v2 v1.16.7
-	github.com/aws/aws-sdk-go-v2/config v1.15.13
-	github.com/aws/aws-sdk-go-v2/credentials v1.12.8
-	github.com/aws/aws-sdk-go-v2/service/sqs v1.19.0
-	github.com/docker/docker v24.0.5+incompatible
+	github.com/aws/aws-sdk-go-v2 v1.22.2
+	github.com/aws/aws-sdk-go-v2/config v1.18.42
+	github.com/aws/aws-sdk-go-v2/credentials v1.13.40
+	github.com/aws/aws-sdk-go-v2/service/sqs v1.24.6
+	github.com/docker/docker v24.0.6+incompatible
 	github.com/docker/go-connections v0.4.0
-	github.com/stretchr/testify v1.2.2
+	github.com/stretchr/testify v1.8.4
 )
 
 require (
 	github.com/Microsoft/go-winio v0.5.2 // indirect
-	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.12.8 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.14 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.4.8 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/ini v1.3.15 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.9.8 // indirect
-	github.com/aws/aws-sdk-go-v2/service/sso v1.11.11 // indirect
-	github.com/aws/aws-sdk-go-v2/service/sts v1.16.9 // indirect
-	github.com/aws/smithy-go v1.12.0 // indirect
+	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.13.11 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.42 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.4.36 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/ini v1.3.43 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.9.35 // indirect
+	github.com/aws/aws-sdk-go-v2/service/sso v1.14.1 // indirect
+	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.17.1 // indirect
+	github.com/aws/aws-sdk-go-v2/service/sts v1.22.0 // indirect
+	github.com/aws/smithy-go v1.16.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/docker/distribution v2.8.1+incompatible // indirect
+	github.com/docker/distribution v2.8.2+incompatible // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect

@@ -84,10 +84,8 @@ func (s *Stack) stop() error {
 	if !s.started || s.containerID == "" {
 		return nil
 	}
-	timeoutSeconds := 10
-	if err := s.cli.ContainerStop(context.Background(), s.containerID, container.StopOptions{
-		Timeout: &timeoutSeconds,
-	}); err != nil {
+	timeout := time.Second
+	if err := s.cli.ContainerStop(context.Background(), s.containerID, &timeout); err != nil {
 		return err
 	}
 	s.containerID = ""

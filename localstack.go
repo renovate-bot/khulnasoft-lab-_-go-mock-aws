@@ -8,8 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/container"
+	containertypes "github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/api/types/filters"
+	imagetypes "github.com/docker/docker/api/types/image"
 	"github.com/docker/docker/api/types/mount"
 	"github.com/docker/docker/client"
 	"github.com/docker/go-connections/nat"
@@ -84,7 +85,7 @@ func (s *Stack) stop() error {
 		return nil
 	}
 	timeoutSeconds := 10
-	if err := s.cli.ContainerStop(context.Background(), s.containerID, container.StopOptions{
+	if err := s.cli.ContainerStop(context.Background(), s.containerID, containertypes.StopOptions{
 		Timeout: &timeoutSeconds,
 	}); err != nil {
 		return err
@@ -123,12 +124,12 @@ func (s *Stack) start() error {
 	}
 
 	resp, err := s.cli.ContainerCreate(s.ctx,
-		&container.Config{
+		&containertypes.Config{
 			Image:        LocalStackImage,
 			Tty:          true,
 			AttachStdout: true,
 			AttachStderr: true,
-		}, &container.HostConfig{
+		}, &containertypes.HostConfig{
 			PortBindings: s.pm,
 			Mounts:       s.getVolumeMounts(),
 			AutoRemove:   true,
@@ -142,7 +143,7 @@ func (s *Stack) start() error {
 
 	s.containerID = resp.ID
 
-	if err := s.cli.ContainerStart(s.ctx, s.containerID, types.ContainerStartOptions{}); err != nil {
+	if err := s.cli.ContainerStart(s.ctx, s.containerID, containertypes.StartOptions{}); err != nil {
 		return err
 	}
 
@@ -173,18 +174,26 @@ func (s *Stack) start() error {
 
 func (s *Stack) ensureImage(imageName string) error {
 
-	images, err := s.cli.ImageList(s.ctx, types.ImageListOptions{All: true})
+	f := filters.NewArgs()
+	f.Add("reference", imageName)
+
+	images, err := s.cli.ImageList(s.ctx, imagetypes.ListOptions{
+		Filters: f,
+	})
+
 	if err != nil {
 		return err
 	}
 
 	for _, image := range images {
-		if image.ID == imageName {
-			return nil
+		for _, tag := range image.RepoTags {
+			if tag == imageName {
+				return nil
+			}
 		}
 	}
 
-	resp, err := s.cli.ImagePull(s.ctx, imageName, types.ImagePullOptions{})
+	resp, err := s.cli.ImagePull(s.ctx, imageName, imagetypes.PullOptions{})
 	if err != nil {
 		return err
 	}
@@ -195,7 +204,7 @@ func (s *Stack) ensureImage(imageName string) error {
 }
 
 func (s *Stack) initComplete() bool {
-	reader, err := s.cli.ContainerLogs(s.ctx, s.containerID, types.ContainerLogsOptions{
+	reader, err := s.cli.ContainerLogs(s.ctx, s.containerID, containertypes.LogsOptions{
 		ShowStdout: true,
 		Follow:     false,
 	})
